@@ -1,0 +1,146 @@
+<script>
+function randomStat() {
+    return Math.floor(Math.random() * 100) + 1;
+}
+
+function getLore(role, name) {
+    switch(role) {
+        case "NPC":
+            return `${name} hanyalah sosok biasa di dunia baru. Hidupnya sederhana, namun selalu berada di tengah peristiwa besar tanpa disadari.`;
+
+        case "Wanita Cantik":
+            return `${name} dikenal sebagai sosok yang memikat hati siapa pun yang melihatnya. Banyak yang jatuh cinta, namun tidak ada yang benar-benar mengenalnya.`;
+
+        case "Pangeran Tampan":
+            return `${name} adalah bangsawan muda dengan pesona luar biasa. Dikelilingi kekuasaan, namun hatinya selalu mencari sesuatu yang lebih dari sekadar tahta.`;
+
+        case "Sosok Hitam":
+            return `${name} adalah sosok mengerikan yang selalu mengasah linggis jawa, dikenal sebagai psilit hitam terkuat yang menebar teror di seluruh dunia.`;
+
+        case "Raja Iblis":
+            return `${name} bangkit sebagai penguasa kegelapan. Namanya ditakuti, dan setiap langkahnya membawa kehancuran bagi dunia.`;
+
+        case "Pengasah Linggis":
+            return `${name} menjalani hidup sederhana sebagai pengasah linggis, namun konon senjatanya mampu menembus apa pun di dunia ini.`;
+
+        case "Prajurit Tumbal Proyek":
+            return `${name} hanyalah pion dalam perang besar. Dikirim ke garis depan tanpa pilihan, namun keberaniannya tetap dikenang.`;
+
+        case "Ksatria Suci":
+            return `${name} adalah pelindung cahaya, berdiri di garis depan melawan kegelapan dengan tekad yang tak tergoyahkan.`;
+
+        case "Raja":
+            return `${name} memimpin kerajaan besar dengan kekuatan dan kebijaksanaan. Rakyat hidup dalam kejayaan di bawah pemerintahannya.`;
+
+        case "Ratu":
+            return `${name} adalah pemimpin elegan yang memerintah dengan kecerdasan dan kharisma yang luar biasa.`;
+
+        case "Permaisuri":
+            return `${name} hidup di balik kemewahan istana, namun memiliki pengaruh besar dalam setiap keputusan kerajaan.`;
+
+        case "Putri":
+            return `${name} adalah bangsawan muda yang penuh harapan, namun takdir besar menantinya di masa depan.`;
+
+        case "Penyihir":
+            return `${name} menguasai sihir misterius. Banyak yang takut, namun kekuatannya tak tertandingi.`;
+
+        case "Undead":
+            return `${name} telah mati... namun bangkit kembali. Keberadaannya menjadi misteri yang mengganggu dunia.`;
+
+        case "Elf":
+            return `${name} hidup di hutan kuno sebagai elf yang anggun, terhubung dengan alam dan waktu yang panjang.`;
+
+        case "Iblis":
+            return `${name} adalah makhluk kegelapan yang licik dan kuat, bermain di antara kekacauan dunia.`;
+
+        case "Raja Hitam":
+            return `${name} adalah penguasa bayangan, mengendalikan dunia dari balik kegelapan tanpa terlihat.`;
+
+        case "Budak Korporat":
+            return `${name} bekerja tanpa henti dalam sistem yang tak berujung. Dunia lain pun tidak memberinya kebebasan.`;
+
+        case "Femboy":
+            return `${name} memiliki pesona unik yang membuat siapa pun bingung sekaligus terpikat.`;
+
+        case "Jomok":
+            return `${name} dikenal dengan aura aneh yang sulit dijelaskan, namun selalu menjadi pusat perhatian di tempat asing.`;
+
+        case "Penunggang Kuda":
+            return `${name} adalah ksatria pengembara yang menjelajahi dunia luas dengan kudanya yang setia.`;
+
+        default:
+            return `${name} memiliki takdir yang belum diketahui.`;
+    }
+}
+
+function generate() {
+    let rawName = document.getElementById("name").value;
+    let name = rawName.toLowerCase();
+    let age = document.getElementById("age").value;
+
+    if (!name || !age) {
+        alert("Isi semua dulu!");
+        return;
+    }
+
+    let stats = {
+        speed: randomStat(),
+        durability: randomStat(),
+        attack: randomStat(),
+        agility: randomStat(),
+        mana: randomStat(),
+        charm: randomStat()
+    };
+
+    let role = "";
+
+    if (name.includes("ark")) {
+        role = "Sosok Hitam";
+    } else {
+        let avg = (stats.speed + stats.durability + stats.attack + stats.agility + stats.mana + stats.charm) / 6;
+
+        if (avg < 30) {
+            role = ["NPC", "Prajurit Tumbal Proyek"][Math.floor(Math.random()*2)];
+        }
+        else if (stats.charm > 85) {
+            role = ["Wanita Cantik", "Pangeran Tampan", "Femboy"][Math.floor(Math.random()*3)];
+        }
+        else if (avg > 85) {
+            role = ["Raja", "Ratu", "Ksatria Suci"][Math.floor(Math.random()*3)];
+        }
+        else if (stats.mana > 80) {
+            role = ["Penyihir", "Iblis", "Raja Iblis"][Math.floor(Math.random()*3)];
+        }
+        else if (stats.attack > 80) {
+            role = ["Raja Hitam", "Penunggang Kuda"][Math.floor(Math.random()*2)];
+        }
+        else if (avg < 50) {
+            role = ["Budak Korporat", "Pengasah Linggis"][Math.floor(Math.random()*2)];
+        }
+        else {
+            role = ["Elf", "Undead", "Putri", "Permaisuri", "Jomok"][Math.floor(Math.random()*5)];
+        }
+    }
+
+    let lore = getLore(role, rawName);
+
+    let resultHTML = `
+        <h3>Hasil Reinkarnasi</h3>
+        <p><b>Nama:</b> ${rawName}</p>
+        <p><b>Usia Kematian:</b> ${age}</p>
+
+        <h4>Statistik:</h4>
+        <div>Speed: ${stats.speed}</div>
+        <div>Durability: ${stats.durability}</div>
+        <div>Attack: ${stats.attack}</div>
+        <div>Agility: ${stats.agility}</div>
+        <div>Mana: ${stats.mana}</div>
+        <div>Charm: ${stats.charm}</div>
+
+        <h3>Role: ${role}</h3>
+        <p>${lore}</p>
+    `;
+
+    document.getElementById("result").innerHTML = resultHTML;
+}
+</script>
